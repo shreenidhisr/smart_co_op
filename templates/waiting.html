@@ -1,0 +1,31 @@
+{% extends 'base.html' %} {%block css%} {%endblock%} {%block
+title%}Login{%endblock%} {%block body%} {% with messages =
+get_flashed_messages() %} {% if messages %}
+<ul class="flashes">
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %} {% for wait in waiting%}
+<div class="card" style="width: 18rem">
+  <img src="..." class="card-img-top" alt="..." />
+  <div class="card-body">
+    <h5 class="card-title">{{wait[1]}}</h5>
+    <h5 class="card-title">{{wait[2]}}</h5>
+    <h5 class="card-title">{{wait[3]}}</h5>
+    <h4 class="alert alert-success">
+      Your profile hasn't verified yet.Wait for sometime
+    </h4>
+  </div>
+</div>
+
+{%endfor%} {%endblock%}

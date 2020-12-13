@@ -1,0 +1,75 @@
+{% extends 'base.html' %} {%block css%}
+<style>
+  form {
+    margin-left: 200px;
+    margin-top: 50px;
+    height: 500px;
+    padding-top: 100px;
+  }
+  body {
+    background-color: blue;
+  }
+</style>
+{%endblock%} {%block title%}Login{%endblock%} {%block body%} {% with messages =
+get_flashed_messages() %} {% if messages %}
+<ul class="flashes">
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<form
+  action="/"
+  method="POST"
+  class="border border-danger border-5 w-50 bg-light text-center text-wrap"
+>
+  <h1 class="form-header">SMART CO OP</h1>
+  {{form.csrf_token}}
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    {{form.email}}
+    <div id="emailHelp" class="form-text">
+      We'll never share your email with anyone else.
+    </div>
+    {% if form.email.errors %} {% for error in form.email.errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+      <strong>{{error}}</strong>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+      ></button>
+    </div>
+
+    {% endfor %} {% endif %}
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    {{form.password}}
+  </div>
+  {% if form.password.errors %} {% for error in form.password.errors %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %} {% endif %} {{form.submit(class_="btn btn-info")}}
+  <a href="/choosepin" class="btn btn-primary">Register For new Society</a>
+</form>
+
+{%endblock%}

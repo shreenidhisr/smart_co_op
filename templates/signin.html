@@ -1,0 +1,106 @@
+{% extends 'base.html' %} {%block css%}
+<style>
+  form {
+    margin-left: 200px;
+    margin-top: 50px;
+    height: 500px;
+    padding-top: 100px;
+  }
+  body {
+    background-color: blue;
+  }
+</style>
+{%endblock%} {%block title%}Login{%endblock%} {%block body%} {% with messages =
+get_flashed_messages() %} {% if messages %}
+<ul class="flashes">
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<form
+  action="/signin"
+  method="POST"
+  class="border border-danger border-5 w-50 bg-light text-center text-wrap"
+>
+  {{form.csrf_token}}
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">name</label>
+    {{form.name}}
+  </div>
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Aadhar</label>
+    {{form.aadhar}}
+  </div>
+  {% if form.aadhar.errors %} {% for error in form.aadhar.errors %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %} {% endif %}
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    {{form.email}}
+  </div>
+  {% if form.email.errors %} {% for error in form.email.errors %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %} {% endif %}
+  <div class="mb-3">
+    <label for="exampleInputEmail1" class="form-label">mobile number</label>
+    {{form.mobile}}
+  </div>
+  {% if form.mobile.errors %} {% for error in form.mobile.errors %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %} {% endif %}
+  <div class="mb-3">
+    <label for="exampleInputPassword1" class="form-label">Password</label>
+    {{form.password}}
+  </div>
+  {% if form.password.errors %} {% for error in form.password.errors %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{error}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %} {% endif %} {{form.submit(class_="btn btn-info")}}
+  <a href="/" class="btn btn-primary">Login</a>
+</form>
+{%endblock%}

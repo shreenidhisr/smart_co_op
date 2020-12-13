@@ -1,0 +1,53 @@
+{% extends 'base.html' %} {%block css%}
+<style>
+  form {
+    margin-top: 100px;
+    margin-left: 100px;
+  }
+  .buttons {
+    margin-left: 200px;
+  }
+</style>
+
+{%endblock%} {%block title%}Login{%endblock%} {%block body%}
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/society/">SOCIETY </a>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto" style="margin-right: 50px">
+      <li class="nav-item active">
+        <a class="nav-link btn btn-primary" href="#">Home </a>
+      </li>
+      <li class="nav-item" style="margin-left: 50px">
+        <a href="/logout" class="nav-link btn btn-primary">LOGOUT</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+{% with messages = get_flashed_messages() %} {% if messages %}
+<ul class="flashes">
+  {% for message in messages %}
+  <div class="alert alert-warning alert-dismissible fade show" role="alert">
+    <strong>{{message}}</strong>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+
+  {% endfor %}
+</ul>
+{% endif %} {% endwith %}
+<hr />
+
+<div class="buttons">
+  <a href="/society/addproduct/" class="btn btn-primary">Add product</a>
+  <a href="/society/removeproduct/" class="btn btn-primary">Remove product</a>
+  <a href="/society/updateproduct/" class="btn btn-primary">Update product</a>
+  <a href="/society/requests/" class="btn btn-primary">Check Requests</a>
+  <a href="/society/viewproduct/" class="btn btn-primary">View product</a>
+</div>
+{%endblock%}
