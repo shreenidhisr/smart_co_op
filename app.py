@@ -472,6 +472,44 @@ def products():
     return render_template("viewfarmerprod.html", products=products)
 
 
+@app.route("/farmer/viewprofile/", methods=["GET", "POST"])
+@login_farmer
+def viewprofile():
+    global EMAIL_ID
+    cur.execute("select * from farmer where email=%s", (EMAIL_ID))
+    farmers = cur.fetchall()
+    return render_template("viewprofile.html", farmers=farmers)
+
+
+@app.route("/farmer/updateprofile/", methods=["GET", "POST"])
+@login_farmer
+def updateprofile():
+    global EMAIL_ID
+    cur.execute("select * from farmer where email=%s", (EMAIL_ID))
+    farmers = cur.fetchall()
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        mob = request.form["mobile"]
+        try:
+            cur.execute(
+                "update farmer set name=%s,email=%s,mobile=%s where email=%s",
+                (name, email, mob, EMAIL_ID),
+            )
+            global SOCIETY_ID
+            cur.execute(
+                "update waiting set name=%s,email=%s,mobile=%s where email=%s",
+                (name, email, mob, EMAIL_ID),
+            )
+            EMAIL_ID = email
+            flash("updated succesfully")
+        except:
+            flash("failed to update. Try again!!!")
+        finally:
+            return redirect(url_for("farmer"))
+    return render_template("updateprofile.html", farmers=farmers)
+
+
 @app.route("/farmer/addtocart", methods=["GET", "POST"])
 @login_farmer
 def addtocart():
@@ -614,10 +652,6 @@ def farmer_history():
         "history.html", products=cart_products, quantity=prod_quantity
     )
 
-
-# farmer 2 cases
-# view profile
-# update profile
 
 # society 1 case
 # delete user account
